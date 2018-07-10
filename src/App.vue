@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <m-header></m-header>
-    <div class="tab border-1px">
+    <div class="tab border-b-1px">
       <router-link to='/' exact class="tab-item">商品</router-link>
       <router-link to='/ratings' class="tab-item">评价</router-link>
       <router-link to='/seller' class="tab-item">商家</router-link>
@@ -26,7 +26,6 @@ export default {
   display: flex;
   height 40px;
   line-height 40px;
-  // border-bottom 1px solid rgba(7, 17, 27, 0.1)
   border-1px(rgba(7, 17, 27, 0.1))
   .tab-item
     flex 1
