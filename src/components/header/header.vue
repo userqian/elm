@@ -17,7 +17,7 @@
           <span class="text">{{seller.supports[0].description}}</span>
         </div>
       </div>
-      <div class="support-count" v-if="seller.supports">
+      <div class="support-count" v-if="seller.supports" @click="showDetail">
         <span class="count">{{seller.supports.length}}个</span>
         <i class="icon-keyboard_arrow_right"></i>
       </div>
@@ -26,19 +26,69 @@
       <i class="icon bulletin"></i><span class="bulletin-content">{{seller.bulletin}}</span>
       <i class="icon-keyboard_arrow_right"></i>
     </div>
+    <div class="background">
+      <img :src="seller.avatar">
+    </div>
+    <!-- 弹出框 -->
+    <transition name="fade">
+      <div class="support-detail" v-if="supportDetail">
+        <div class="detail-wrap clearfix">
+          <div class="detail-main">
+            <h1 class="name">{{seller.name}}</h1>
+            <star :size = 48 :score = 'seller.score'></star>
+            <div class="title">
+              <div class="line"></div>
+              <div class="text">优惠详情</div>
+              <div class="line"></div>
+            </div>
+            <ul class="supports-list" v-if="seller.supports">
+              <li class="supports-item" v-for="(item, index) in seller.supports" :key="index">
+                <i class="icon" :class="classMap[item.type]"></i>
+                <span class="text">{{item.description}}</span>
+              </li>
+            </ul>
+            <div class="title">
+              <div class="line"></div>
+              <div class="text">商家公告</div>
+              <div class="line"></div>
+            </div>
+            <div class="bulletin">
+              <p class="content">{{seller.bulletin}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="detail-close" @click="showDetail">
+          <i class="icon-close"></i>
+        </div>
+      </div>
+    </transition>
   </div>
 </template>
 
 <script>
+import star from 'components/star/star'
 export default {
   props: {
     seller: {
       type: Object
     }
   },
+  data(){
+    return{
+      supportDetail: false
+    }
+  },
   created(){
     // 设置icon图标
     this.classMap = ['decrease', 'discount', 'guarantee', 'invoice', 'special']
+  },
+  methods:{
+    showDetail(){
+      this.supportDetail = !this.supportDetail
+    }
+  },
+  components: {
+    star
   }
 };
 </script>
@@ -46,8 +96,10 @@ export default {
 <style lang='stylus' rel='stylesheet/stylus'>
 @import '../../common/styl/minxi.styl'
   .header
-    background #999
+    position relative
     color rgb(255,255,255)
+    background rgba(7,17,27,0.2)
+    overflow hidden
     .content-wrap
       position relative
       display flex
@@ -141,4 +193,113 @@ export default {
         top: 8px;
         right: 5px;
         font-size: 12px;
+    .background
+      position absolute
+      top 0px
+      left 0px
+      width 100%
+      height 100%
+      z-index -1
+      filter blur(10px)
+      img
+        width 100%
+        height 100%
+    .support-detail{
+      position fixed
+      top 0px
+      left 0px
+      width 100%
+      height 100%
+      background rgba(7,17,27,0.8)
+      z-index 100
+      overflow auto
+      backdrop-filter blur(10px)
+      .detail-wrap{
+        width 100%
+        min-height 100%
+        .detail-main{
+          margin-top 64px
+          padding-bottom 64px
+          .name{
+            text-align center
+            font-size 16px
+            font-weight 700
+            line-height 16px
+          }
+          .star{
+            text-align center
+            margin-top 16px
+          }
+          .title{
+            display flex
+            width 80%
+            margin 28px auto 24px
+            align-items center
+            .line{
+              flex 1
+              border-1px(rgba(255,255,255,.2))
+            }
+            .text{
+              margin 0 12px
+              font-size 14px
+              font-weight 700
+              line-height 14px
+            }
+          }
+          .supports-list{
+            width 80%
+            margin 0 auto
+            .supports-item{
+              margin-bottom 12px
+              font-size 0
+              &:last-child{
+                margin-bottom 0
+              }
+              .icon{
+                display inline-block
+                width 16px
+                height 16px
+                margin-right 6px
+                vertical-align top
+                &.decrease{
+                  bg-img('decrease_2')
+                }
+                &.discount{
+                  bg-img('discount_2')
+                }
+                &.guarantee{
+                  bg-img('guarantee_2')
+                }
+                &.invoice{
+                  bg-img('invoice_2')
+                }
+                &.special{
+                  bg-img('special_2')
+                }
+              }
+              .text{
+                font-size 12px
+                line-height 16px
+              }
+            }
+          }
+          .bulletin{
+            width 80%
+            margin 0 auto
+            .content{
+              font-size 12px
+              line-height 24px
+              padding 0 12px
+            }
+          }
+        }
+      }
+      .detail-close{
+        position relative
+        width 32px
+        height 32px
+        margin -64px auto 0 auto
+        font-size 32px
+      }
+    }
 </style>
