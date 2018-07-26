@@ -12,9 +12,7 @@
 
 <script>
 import mHeader from "components/header/header.vue";
-import url from "common/js/config.js";
-import axios from "axios";
-const ERR_OK = 200;
+import {URL, ERR_OK} from "common/js/config.js";
 export default {
   name: "App",
   data() {
@@ -27,11 +25,10 @@ export default {
   },
   methods: {
     getHeader() {
-      axios.get(url + "/seller")
+      this.axios.get(URL + "/seller")
         .then(res => {
           if (res.status === ERR_OK) {
             this.seller = res.data.data.seller
-            console.log(this.seller)
           }
         })
         .catch(err => {

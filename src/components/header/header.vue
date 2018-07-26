@@ -13,7 +13,8 @@
           <span>{{seller.description}} / {{seller.deliveryTime}}分钟送达</span>
         </div>
         <div class="supports" v-if="seller.supports">
-          <i class="icon" :class="classMap[seller.supports[0].type]"></i>
+          <!-- <i class="icon" :class="classMap[seller.supports[0].type]"></i> -->
+          <icon :size=1 :site=seller.supports[0].type></icon>
           <span class="text">{{seller.supports[0].description}}</span>
         </div>
       </div>
@@ -43,7 +44,8 @@
             </div>
             <ul class="supports-list" v-if="seller.supports">
               <li class="supports-item" v-for="(item, index) in seller.supports" :key="index">
-                <i class="icon" :class="classMap[item.type]"></i>
+                <!-- <i class="icon" :class="classMap[item.type]"></i> -->
+                <icon :size=1 :site=item.type></icon>
                 <span class="text">{{item.description}}</span>
               </li>
             </ul>
@@ -67,6 +69,7 @@
 
 <script>
 import star from 'components/star/star'
+import icon from 'components/icon/icon'
 export default {
   props: {
     seller: {
@@ -79,8 +82,7 @@ export default {
     }
   },
   created(){
-    // 设置icon图标
-    this.classMap = ['decrease', 'discount', 'guarantee', 'invoice', 'special']
+    // this.classMap = classMap
   },
   methods:{
     showDetail(){
@@ -88,7 +90,8 @@ export default {
     }
   },
   components: {
-    star
+    star,
+    icon
   }
 };
 </script>
@@ -137,16 +140,16 @@ export default {
             height 12px
             margin-right 4px
             vertical-align -2px
-            &.decrease
-              bg-img(decrease_1)
-            &.discount
-              bg-img(discount_1)
-            &.guarantee
-              bg-img(guarantee_1)
-            &.invoice
-              bg-img(invoice_1)
-            &.special
-              bg-img(special_1)
+            // &.decrease
+            //   bg-img(decrease_1)
+            // &.discount
+            //   bg-img(discount_1)
+            // &.guarantee
+            //   bg-img(guarantee_1)
+            // &.invoice
+            //   bg-img(invoice_1)
+            // &.special
+            //   bg-img(special_1)
           .text
             font-size 10px
             line-height 12px

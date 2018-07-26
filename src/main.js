@@ -2,6 +2,9 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import 'common/styl/index.styl'
+import axios from 'axios'
+
+Vue.prototype.axios = axios
 
 Vue.config.productionTip = false
 
