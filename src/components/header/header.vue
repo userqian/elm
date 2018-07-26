@@ -44,7 +44,6 @@
             </div>
             <ul class="supports-list" v-if="seller.supports">
               <li class="supports-item" v-for="(item, index) in seller.supports" :key="index">
-                <!-- <i class="icon" :class="classMap[item.type]"></i> -->
                 <icon :size=1 :site=item.type></icon>
                 <span class="text">{{item.description}}</span>
               </li>
@@ -140,16 +139,6 @@ export default {
             height 12px
             margin-right 4px
             vertical-align -2px
-            // &.decrease
-            //   bg-img(decrease_1)
-            // &.discount
-            //   bg-img(discount_1)
-            // &.guarantee
-            //   bg-img(guarantee_1)
-            // &.invoice
-            //   bg-img(invoice_1)
-            // &.special
-            //   bg-img(special_1)
           .text
             font-size 10px
             line-height 12px
@@ -264,21 +253,6 @@ export default {
                 height 16px
                 margin-right 6px
                 vertical-align top
-                &.decrease{
-                  bg-img('decrease_2')
-                }
-                &.discount{
-                  bg-img('discount_2')
-                }
-                &.guarantee{
-                  bg-img('guarantee_2')
-                }
-                &.invoice{
-                  bg-img('invoice_2')
-                }
-                &.special{
-                  bg-img('special_2')
-                }
               }
               .text{
                 font-size 12px
